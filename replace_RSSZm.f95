@@ -55,6 +55,8 @@ integer Dups_counter(1:HES_H)
 real    Dups            ! percentage of duplicate households in combination
 integer AreaSarSwitch !redundant for HES; but needed in case regional sampling possible
 
+real check_small_rand
+
 !Initialise hard-coded run parameters                  
 
 Measure=2                ! 1=OTAE; 2=RSumZm2; 3=OTAE or RSumZm2
@@ -343,7 +345,8 @@ endif
     else 
       call Random_Number(randm) 
       if (Temp .lt. 0.0001) temp=0.0001      ! avoid temp=0
-      if (randm .lt. (exp(real(TRSumZm2-NewTRSumZm2)*100./Temp))) then
+      check_small_rand = max(-80, real(TRSumZm2-NewTRSumZm2)*100./Temp) !added by CWM, to avoid Arithmetic error
+      if (randm .lt. (exp(check_small_rand))) then
         rep=1
         adverse_changes=adverse_changes+1
         !write(33,*) evaluations,temp,randm,exp(real(TRSumZm2-NewTRSumZm2)*100./Temp),TRSumZm2-NewTRSumZm2
