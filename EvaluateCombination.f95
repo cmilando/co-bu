@@ -42,7 +42,8 @@ do m = 1,nooft
     TotalU=U(0,m); TotalT=T(0,m); Z=0.; SumZ2=0.
 
     !0. Find average table total [for use in continuity correction]
-    TotalAve=TotalT+TotalU/2.
+    !TotalAve=TotalT+TotalU/2.
+    TotalAve=(TotalT+TotalU)/2.
 
     !Calculate OTAE(m)
 
@@ -75,7 +76,7 @@ do m = 1,nooft
         pU = 0.
       elseif (U(j,m)==0) Then !expected cell count=0
         pU = 0.1 / TotalU  !If 1/TotalU, pu(1-pU)=1, which leads to division by zero
-      ElseIf ((U(j,m)-TotalU)<0.0001) Then !i.e. cell count = table total
+      ElseIf (abs(U(j,m)-TotalU)<0.0001) Then !i.e. cell count = table total !! CWM added 'abs', otherwise the loop always ends here
         pU = U(j,m) / (TotalU + 1)
       ElseIf (U(j,m) > TotalU) Then
         pU = U(j,m) / (U(j,m) + 1)

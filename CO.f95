@@ -58,8 +58,9 @@ integer Comb(1:100000), CombK(1:100000,1:100)                                !*
 !evaluated (maximum no. of households for an SLA in ACT is 5842)
 !CombK store max=100 runs results  
 
-real F(1:32,1:20)                                                        !*
+real, dimension(:, :), allocatable :: F                                                        !*
 !the constant part of RSumZm2        
+! updated to allocatable by CWM
 
 integer Nooft,nooff,NoOfH,MaxJ,HES_H,HES_I,TAE,MaxAreaHH
 integer NoOfHT, NoOfIT
@@ -145,6 +146,9 @@ read(3,*) nooft
 call ReadTableInfo(TableName,Nm,ChiSqCV,TableType,TableSwitch,nooft,noofit,noofht,&
   fname,nooff,Total_BM_counts,maxj)
 close(3)
+
+!! added by CWM
+allocate(F(1:maxj,1:nooft))
 
 !Read in user-defined control parameters
 open(17,file=fname(17),status='old',action='read')          ! sa.limit
@@ -350,7 +354,8 @@ area_loop: do
     write(*,'(a20,a4,i5,f8.2,a17)') AreaCode, ' run', k, (time2-time1)/60, ' cumlative cpu(m)'  
        
     !Initialise random number generator for current estimate
-    call Random_Seed(PUT=iseed(k))
+    !call Random_Seed(PUT=iseed(k))
+    call Random_Seed(PUT=iseed) !! updated by CWM, I think this is a computer-specific thing
      
     !Select initial household combination from sample population microdata
     call initcomb(Comb(1:noofh),noofh,HES_H)

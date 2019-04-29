@@ -14,8 +14,10 @@ character*20 :: AreaCode(1:NoOfAreas)
 character*70 :: Pathname
 character*4 :: EstimateNo
 
+integer, parameter :: max_hh_per_area = 10000 ! added by CWM to set the max total number of simulated households per area
+
 allocate(Area_Weights(1:HES_H,1:NoOfAreas))
-allocate(Comb(1:HES_H))
+allocate(Comb(1:max_hh_per_area))
 
 !Open run-specific output folder to store weights
 !call mkdir@('Weights',ioerr)
@@ -42,6 +44,7 @@ do k=1,maxseed !loop through CO replications
   do !loop through estimation areas
   
     area=area+1
+    if(area > NoOfAreas) exit !added by CWM, else it goes off the end of the loop, think this is a ftn95 vs gfortran thing
     !Read in next area name
     read(12,*,iostat=area_loop_err)  AreaCode(area) !input=Area_list.txt
     if (area_loop_err/=0) exit !if end of file, exit loop
