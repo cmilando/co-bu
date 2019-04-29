@@ -18,9 +18,11 @@ allocate(Area_Weights(1:HES_H,1:NoOfAreas))
 allocate(Comb(1:HES_H))
 
 !Open run-specific output folder to store weights
-call mkdir@('Weights',ioerr)
-Pathname='Weights/'//trim(RunName)
-call mkdir@(trim(Pathname),ioerr)
+!call mkdir@('Weights',ioerr)
+call system('if not exist "Weights\" mkdir Weights')
+Pathname='Weights\'//trim(RunName)
+!call mkdir@(trim(Pathname),ioerr)
+call system('if not exist "'//Pathname//'" mkdir '//Pathname)
 
 do k=1,maxseed !loop through CO replications
 

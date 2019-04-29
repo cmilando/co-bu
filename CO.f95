@@ -190,17 +190,26 @@ close(16)
 !------- Create output folders and open output files --------------------------------!
 
 !Open main output folders, if does not already exist
-if (Estimate_Fit_Flag==1) call mkdir@('Estimate_Fit',ioerr)
-if (Combinations_Flag==1) call mkdir@('Combinations',ioerr)
-if (Estimates_Flag==1) call mkdir@('Estimates',ioerr)
-  
+!if (Estimate_Fit_Flag==1) call mkdir@('Estimate_Fit',ioerr)
+if (Estimate_Fit_Flag==1) call system('if not exist "Estimate_Fit\" mkdir Estimate_Fit')
+!if (Combinations_Flag==1) call mkdir@('Combinations',ioerr)
+if (Combinations_Flag==1) call system('if not exist "Combinations\" mkdir Combinations')
+!if (Estimates_Flag==1) call mkdir@('Estimates',ioerr)
+if (Estimates_Flag==1) call system('if not exist "Estimates\" mkdir Estimates')
+
 !Open State level output subfolders      
-Pathname='Estimate_Fit/'//trim(RunName)
-if (Estimate_Fit_Flag==1) call mkdir@(trim(Pathname),ioerr)
-Pathname='Combinations/'//trim(RunName)
-if (Combinations_Flag==1) call mkdir@(trim(Pathname),ioerr)
-Pathname='Estimates/'//trim(RunName)
-if (Estimates_Flag==1) call mkdir@(trim(Pathname),ioerr)
+!Pathname=//trim(RunName)
+Pathname = 'Estimate_Fit\'// trim(RunName)
+!if (Estimate_Fit_Flag==1) call mkdir@(trim(Pathname),ioerr)
+if (Estimate_Fit_Flag==1) call system('if not exist "'//Pathname//'" mkdir '//Pathname)
+
+Pathname='Combinations\'//trim(RunName)
+!if (Combinations_Flag==1) call mkdir@(trim(Pathname),ioerr)
+if (Combinations_Flag==1) call system('if not exist "'//Pathname//'" mkdir '//Pathname)
+
+Pathname='Estimates\'//trim(RunName)
+!if (Estimates_Flag==1) call mkdir@(trim(Pathname),ioerr)
+if (Estimates_Flag==1) call system('if not exist "'//Pathname//'" mkdir '//Pathname)
 
 
 if (Estimate_Fit_Flag==1) then        
