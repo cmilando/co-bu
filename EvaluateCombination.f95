@@ -34,7 +34,7 @@ OTAE=0; ORSumZ2=0.; ONFT=0; ONFC=0
                                                                 
 do m = 1,nooft
      
-! write(5,*)  ' m=', m
+! write(*,*)  ' m=', m
       
   if (switch(m)/=0) then !if table switched on
 

@@ -112,7 +112,7 @@ MaxAreaHH=100000                                                            !*
 
 
 !Run-time Progress report to terminal
-write(*,*) 'CO inputs (user-supplied)' !write(5,*) 'Start CO'
+write(*,*) 'CO inputs (user-supplied)' !write(*,*) 'Start CO'
 
 !------- read-in general user-supplied program parameters ----------------------------!
 !---- (Part 1: inputs from files currently not pointed to by CO_filelist.dat)--!
@@ -122,7 +122,7 @@ call fnames(fname,nooff)
 
 
 !Run-time Progress report to terminal
-!write(5,*) 'Read in user-supplied filenames'
+!write(*,*) 'Read in user-supplied filenames'
 
 
 !------- read-in general user-supplied program parameters ----------------------------!
@@ -137,7 +137,7 @@ do
   NoOfAreas=NoOfAreas+1
 enddo
 Close(12)
-Write(5,*) 'Estimation areas:            ',NoOfAreas
+write(*,*) 'Estimation areas:            ',NoOfAreas
 
 !Read in size (no. of interior cells) in each input table of constraints
 open(3,file=fname(3),status='old',action='read')
@@ -184,7 +184,7 @@ open(16,file=fname(16),status='old',action='read') !input=seednum.txt
 close(16)
 
 !Run-time Progress report to terminal
-!write(5,*) 'CO: Reading in microdata'
+!write(*,*) 'CO: Reading in microdata'
 
 
 !------- Create output folders and open output files --------------------------------!
@@ -228,7 +228,7 @@ if (Estimate_Fit_Flag==1) then
 endif !If Estimates_Fit_Flag==1
 
 !Run-time Progress report to terminal
-!write(5,*) 'CO: Reading in user-supplied program parameters'
+!write(*,*) 'CO: Reading in user-supplied program parameters'
 
 !------ read-in sample population microdata -----------------------------------------!
 
@@ -244,7 +244,7 @@ do
   if (eof_err/=0) exit !if end of file, exit loop
   HES_H=HES_H+1
 enddo
-write(5,*) 'Survey households:           ',HES_H
+write(*,*) 'Survey households:           ',HES_H
 
 !Calculate no. of individuals in survey
 HES_I=0
@@ -253,13 +253,13 @@ do
   if (eof_err/=0) exit !if end of file, exit loop
   HES_I=HES_I+1
 enddo
-write(5,*) 'Survey individuals:          ',HES_I
+write(*,*) 'Survey individuals:          ',HES_I
 
 rewind(1)
 rewind(2)
 
-write(5,*) 'CO replications:             ',maxseed
-write(5,*)
+write(*,*) 'CO replications:             ',maxseed
+write(*,*)
 
 !Read in the values of FirstInd and LastInd for
 !every household 
@@ -287,7 +287,7 @@ Open(12,file=fname(12),status='old',action='read')          ! Area_list.txt
 call cpu_time(time1) 
                 
 !Run-time Progress report to terminal
-!write(5,*) 'CO: Reading in constraints'
+!write(*,*) 'CO: Reading in constraints'
 
 area_no=0
 
@@ -309,7 +309,7 @@ area_loop: do
 
   !Check that Area ID of area just read in (AreaCode2) = that in AreaList (AreaCode)
   if (trim(AreaCode2)/=trim(AreaCode)) then
-    write(5,*) 'ERROR: Order of Area IDs in AreaList /= order of Area IDs in estimation constraints'
+    write(*,*) 'ERROR: Order of Area IDs in AreaList /= order of Area IDs in estimation constraints'
     write(8,*) 'ERROR: Order of Area IDs in AreaList /= order of Area IDs in estimation constraints'
     read(6,*) wait
     stop
@@ -324,7 +324,7 @@ area_loop: do
   E=0 ! E = array to store best estimate of constraining table counts, for estimate k
 
 !Run-time Progress report to terminal
-!write(5,*) 'CO: Starting estimation routine'
+!write(*,*) 'CO: Starting estimation routine'
 
 !----- Start estimate loop (allows multiple-estimates to be produced for current area ----!
 
@@ -338,7 +338,7 @@ area_loop: do
     call cpu_time(time2)
     
     !report progress to terminal
-    write (5,'(a20,a4,i5,f8.2,a17)') AreaCode, ' run', k, (time2-time1)/60, ' cumlative cpu(m)'  
+    write(*,'(a20,a4,i5,f8.2,a17)') AreaCode, ' run', k, (time2-time1)/60, ' cumlative cpu(m)'  
        
     !Initialise random number generator for current estimate
     call Random_Seed(PUT=iseed(k))
@@ -363,8 +363,8 @@ area_loop: do
          limit, temp0, decr, EvalsThreshold1,EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, &
          Step_Size,evaluations,AcRSSZ,AcOTAE,Tabletype,Estimate_Fit_Flag)
      else
-       write(5,*) 'Please check measure of fit entered in file CO_filelist.txt'
-       write(5,*) 'Note: TAE or RSSZm only valid entries (case sensitive)'
+       write(*,*) 'Please check measure of fit entered in file CO_filelist.txt'
+       write(*,*) 'Note: TAE or RSSZm only valid entries (case sensitive)'
        read(6,*)
        stop
      endif
@@ -452,7 +452,7 @@ area_loop: do
 
 enddo area_loop !next area
 
-write(5,*) 'No of areas = ',area_no
+write(*,*) 'No of areas = ',area_no
 
 !Report full area weights (if required)
 if (Weights_on=="W" .or. Weights_on=="w") &
@@ -461,7 +461,7 @@ if (Weights_on=="W" .or. Weights_on=="w") &
 
 !Calculate and report overall run-time
 call cpu_time(time2)
-write (5,'(a20,f8.2)') '   TOTAL CPU(hr) = ',(time2-time1)/3600
+write(*,'(a20,f8.2)') '   TOTAL CPU(hr) = ',(time2-time1)/3600
 
 
 stop

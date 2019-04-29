@@ -101,7 +101,7 @@ enddo
                                                                 
       do m = 1,nooft 
       
-! write(5,*)  ' m=', m
+! write(*,*)  ' m=', m
       
         if (switch(m)/=0) then !if table switched on
 
@@ -141,8 +141,8 @@ enddo
            if (nint(TotalE(k)) .gt. 0) then !if total estimate count for current table>0
              TableRAE(k)=TableTAE(k)/TotalE(k)
            else
-             write(5,*) 'Table =', m, '  Replication =', k
-             write(5,*)  'Z-scores cannot be calculated: Sum of Ejmk=0,TABLE ',table(m)
+             write(*,*) 'Table =', m, '  Replication =', k
+             write(*,*)  'Z-scores cannot be calculated: Sum of Ejmk=0,TABLE ',table(m)
              goto 800
            endif      
 
@@ -467,8 +467,8 @@ enddo
 
        else !table total=0
 
-         write(5,*) 'Table =', m, table(m)
-         write(5,*)  'Z-scores cannot be calculated: Sum of Ujm=0 for table', table(m)
+         write(*,*) 'Table =', m, table(m)
+         write(*,*)  'Z-scores cannot be calculated: Sum of Ujm=0 for table', table(m)
                                                                      
        endif !if Table total > 0
                              

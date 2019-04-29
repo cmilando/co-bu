@@ -25,11 +25,11 @@ do  m=1,nooft
   if (TableType(m)==1) NoOfIT=NoOfIT+1
   if (TableType(m)==2) NoofHT=NooFHT+1
   if (Nm(m)>maxj) maxj=Nm(m)
-! write(5,*) table(m),Nm(m)
+! write(*,*) table(m),Nm(m)
 enddo
 
-write(5,*) 'Constraint tables:           ',NoofT
-write(5,*) 'Constraints per table (max): ',Maxj 
-write(5,*) 'Total constraints:           ',Total_BM_Counts
+write(*,*) 'Constraint tables:           ',NoofT
+write(*,*) 'Constraints per table (max): ',Maxj 
+write(*,*) 'Total constraints:           ',Total_BM_Counts
 
 end subroutine

@@ -13,9 +13,9 @@ do m=1,nooft !loop through tables
 
   if(switch(m)/=0) then !if table switched on
       
-    !write(5,*) 'Table ',m
-    !write(5,*) maxhh
-    !write(5,*) h28(maxhh),h28(maxhh)+h13(maxhh)-1
+    !write(*,*) 'Table ',m
+    !write(*,*) maxhh
+    !write(*,*) h28(maxhh),h28(maxhh)+h13(maxhh)-1
 
 
     select case (TableType(m))

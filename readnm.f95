@@ -20,9 +20,9 @@ open(3,file=fname(3),status='old',action='read')
 do  m=1,nooft
   read(3,*) TableName(m),Nm(m),ChiSqCV(m), TableType(m), TableSwitch(m)
   Total_BM_Counts=Total_BM_Counts+Nm(m)
-! write(5,*) table(m),Nm(m)
+! write(*,*) table(m),Nm(m)
 enddo
-write(5,*) 'Total BM counts= ',Total_BM_Counts
+write(*,*) 'Total BM counts= ',Total_BM_Counts
 
 close(3)
 

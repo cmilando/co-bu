@@ -1,0 +1,8 @@
+### CO (BU version)
+
+comes from:
+http://pcwww.liv.ac.uk/~william/microdata/CO%20070615/CO_software.html
+
+use `gdb CO_BU.exe` to debug inline
+it seems like compiling like this does make it faster then the out of the box
+version

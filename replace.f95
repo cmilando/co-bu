@@ -114,7 +114,7 @@ call CalcRjm(TableSwitch,T,U,R,Nm,maxj,nooft,TAE)
 !Assess and report goodness of fit of initial combo [test runs only]
 call  EvaluateCombination(TableSwitch,maxj,Nm,nooft,T,U,ChisqCV,OTAE,ORSumZ2,ONFT,ONFC)
 
-!write(5,'(a8,i8,3i6,2F8.2)') 'Start sub: ',trigger_evals,NFT,NFC,OTAE,ORSumZ2,Dups 
+!write(*,'(a8,i8,3i6,2F8.2)') 'Start sub: ',trigger_evals,NFT,NFC,OTAE,ORSumZ2,Dups 
 ! =============================================================================
           
 call CPU_time(t1)
@@ -457,7 +457,7 @@ endif
       Call CalcTjm(TableSwitch,T,U,Nm,Comb,FirstInd,LastInd,H,I,maxj,nooft,TableType,&
         noofh,HES_H,HES_I,0) !1 at end triggers report to be written to channel(8) test output.txt
       R=U-T
-      !write(5,*) 'BestComb/=Comb'
+      !write(*,*) 'BestComb/=Comb'
     endif
 
     !if exit fit measure is based on TAE alone, reset H/h comb to best comb. encountered so far
@@ -488,7 +488,7 @@ endif
       if (evaluations >= EvalsThreshold2) AreaSarSwitch=0
 
       ! write to screen current no. of evals, NFC etc [test runs only]
-      ! write(5,'(a8,i8,3i6,2f8.2,)') 'In sub: ',trigger_evals,NFT,NFC,OTAE,ORSumZ2,Dups
+      ! write(*,'(a8,i8,3i6,2f8.2,)') 'In sub: ',trigger_evals,NFT,NFC,OTAE,ORSumZ2,Dups
 
       ! if trigger_evals<EvalsThreshold3, continue sampling for another 'step_size' iterations
       ! before pausing to reevaluate overall progress
@@ -527,7 +527,7 @@ if(any(Comb(1:noofh)/=BestComb(1:noofh))) then !current comb /= best combination
   !Find estimated counts (Tjm) from initial h/hold combination
   Call CalcTjm(TableSwitch,T,U,Nm,Comb,FirstInd,LastInd,H,I,maxj,nooft,TableType,&
     noofh,HES_H,HES_I,0) !1 at end triggers report to be written to channel(8) test output.txt
-    !write(5,*) 'BestComb/=Comb'
+    !write(*,*) 'BestComb/=Comb'
 endif
 
 !In any case, most recent evaluation may not have been for current evalutation (h/h combination)
@@ -543,10 +543,10 @@ Dups=real(sum(Dups_counter,MASK=Dups_counter>1))/real(noofh)*100.
 call CPU_time(t2)
 time=t2-t1
    
-write(5,'(a6,i8,a5,i3,a5,i5,a5,i6,a9,F10.2,a6,F7.2,a10,i6)') &
+write(*,'(a6,i8,a5,i3,a5,i5,a5,i6,a9,F10.2,a6,F7.2,a10,i6)') &
   'Evals ',trigger_evals,' ONFT', ONFT(0), &
   ' ONFC',ONFC(0),' OTAE',OTAE(0),' ORSumZ2',ORSumZ2(0),' Dups',Dups
-write(5,'(a10,i8,a10,i8)') 'NoOfReps',noofrep,' Backsteps',adverse_changes
+write(*,'(a10,i8,a10,i8)') 'NoOfReps',noofrep,' Backsteps',adverse_changes
 
 write(13,'(a9,2x,f6.1,i9,i8,2i5,i6,f8.2,f10.2)', advance= 'no') AreaCode,  &
   time,trigger_evals,noofrep,ONFT(0),ONFC(0),OTAE(0),(real(OTAE(0))/real(noofh)),ORSumZ2(0)

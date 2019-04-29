@@ -45,10 +45,10 @@ do k=1,maxseed !loop through CO replications
     if (area_loop_err/=0) exit !if end of file, exit loop
 
     !!NoOfAreas=NoOfAreas+1
-    !!write(5,*) 'NoOfAreas ',NoOfAreas
+    !!write(*,*) 'NoOfAreas ',NoOfAreas
     !Read in Combination for current area / CO replication
     Pathname='Combinations/'//trim(RunName)//'/'//'Comb_'//trim(AreaCode(area))//'_v'//trim(EstimateNo)//'.txt'
-    !write(5,*) pathname
+    !write(*,*) pathname
     open(9,file=trim(Pathname),action='read')
 
     !Find no. of households in combination
@@ -71,7 +71,7 @@ do k=1,maxseed !loop through CO replications
 
   !Create run-specific output folder to store full-set of weights for each estimation area
   Pathname = 'Weights/'//trim(RunName)//'/'//trim(RunName)//'_wgts_v'//trim(EstimateNo)//'.csv'
-  !write(5,*) Pathname
+  !write(*,*) Pathname
   open(10,file=trim(Pathname),status='replace',action='write')
  
   !Write out full set of survey weights
