@@ -22,9 +22,9 @@ double precision :: ChisqCV(1:nooft)
 integer maxj, nooft, j
 
 integer m,ONFT(0:nooft), ONFC(0:nooft) ,OTAE(0:nooft)
-real TotalU, TotalT
-real numerator, denominator,TotalAve
-real Z(1:maxj), pU, pT,SumZ2, ORSumZ2(0:nooft)
+double precision TotalU, TotalT
+double precision numerator, denominator,TotalAve
+double precision Z(1:maxj), pU, pT,SumZ2, ORSumZ2(0:nooft)
 
 
 !Initialise overall summary measures

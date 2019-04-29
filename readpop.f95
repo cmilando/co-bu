@@ -27,7 +27,7 @@ household_loop: do hhno=1,HES_H
 
                    enddo individual_loop
 
- 	             enddo household_loop
+                 enddo household_loop
 
 
 end subroutine

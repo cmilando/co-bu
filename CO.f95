@@ -17,7 +17,7 @@ character*50 FName(1:17)                                                  !*
 !FName(I) links channel I in read and write statements to a file
 !with the name FName(i), as read in by the sub-routine FNames
       
-integer Nm(1:20), cell                                                    !*
+integer Nm(1:20)                                                    !*
 
 !Chi-square critical value associated with each table
 
@@ -58,7 +58,7 @@ integer Comb(1:100000), CombK(1:100000,1:100)                                !*
 !evaluated (maximum no. of households for an SLA in ACT is 5842)
 !CombK store max=100 runs results  
 
-real, dimension(:, :), allocatable :: F                                                        !*
+double precision, dimension(:, :), allocatable :: F                                                        !*
 !the constant part of RSumZm2        
 ! updated to allocatable by CWM
 
@@ -71,15 +71,15 @@ character*20 AreaCode,AreaCode2,Junk
 character*70 Pathname
 character*40 RunName
 integer :: Total_BM_Counts
-integer ioerr, eof_err, area_loop_err, area_no, NoOfAreas
-real :: time1, time2
+integer eof_err, area_loop_err, area_no, NoOfAreas
+double precision :: time1, time2
 character*4 TableName(1:20)                                        !*
-integer :: Vector_length
+
 integer :: EvalsThreshold1, EvalsThreshold2, EvalsThreshold3,EvalsThreshold4
 integer :: Step_Size, Evaluations, limit, AcOTAE
-real :: temp0, decr, AcRSSZ       
+double precision :: temp0, decr, AcRSSZ       
 integer TableSwitch(1:20), TableType(1:20)                          !*
-integer :: number
+
 character*5 :: Measure
 character*1 :: Weights_on,Combinations_on,Estimate_Fit_on,Estimates_on
 integer :: Combinations_Flag,Estimate_Fit_Flag,Estimates_Flag
@@ -144,7 +144,7 @@ write(*,*) 'Estimation areas:            ',NoOfAreas
 open(3,file=fname(3),status='old',action='read')
 read(3,*) nooft
 call ReadTableInfo(TableName,Nm,ChiSqCV,TableType,TableSwitch,nooft,noofit,noofht,&
-  fname,nooff,Total_BM_counts,maxj)
+  Total_BM_counts,maxj)
 close(3)
 
 !! added by CWM
@@ -366,13 +366,13 @@ area_loop: do
 
     if (trim(Measure)=="TAE") then  
       call replace_TAE(AreaCode,TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),R(0:maxj,1:nooft), &
-          Nm,maxj,nooft,HES_H, noofh,maxareahh,Comb(1:noofh),H(1:HES_H,1:nooft),I(1:HES_I,1:nooft), &
-          FirstInd,LastInd,TAE,HES_I,F(1:maxj,1:nooft),ChisqCV, &
+          Nm,maxj,nooft,HES_H, noofh,Comb(1:noofh),H(1:HES_H,1:nooft),I(1:HES_I,1:nooft), &
+          FirstInd,LastInd,TAE,HES_I,ChisqCV, &
           limit, temp0, decr, EvalsThreshold1,EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, &
           Step_Size,evaluations,AcRSSZ,AcOTAE,Tabletype,Estimate_Fit_Flag)
      elseif (trim(Measure)=="RSSZm") then
        call replace_RSSZm(AreaCode,TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),R(0:maxj,1:nooft), &
-         Nm,maxj,nooft,HES_H, noofh,maxareahh,Comb(1:noofh),H(1:HES_H,1:nooft),I(1:HES_I,1:nooft), &
+         Nm,maxj,nooft,HES_H, noofh,Comb(1:noofh),H(1:HES_H,1:nooft),I(1:HES_I,1:nooft), &
          FirstInd,LastInd,TAE,HES_I,F(1:maxj,1:nooft),ChisqCV, &
          limit, temp0, decr, EvalsThreshold1,EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, &
          Step_Size,evaluations,AcRSSZ,AcOTAE,Tabletype,Estimate_Fit_Flag)

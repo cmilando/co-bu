@@ -20,7 +20,7 @@ integer U(0:maxj,1:nooft),maxj
 integer Nm(1:nooft), nooft, switch(nooft)
 double precision :: ChisqCV(1:nooft)
 integer m,cell
-real F(1:maxj,1:nooft), p, weight(1:nooft)
+double precision F(1:maxj,1:nooft), p, weight(1:nooft)
 
 !Set Fjm for all cells and tables to an initial value of 0
 F=0.  

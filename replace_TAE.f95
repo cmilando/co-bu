@@ -1,5 +1,5 @@
 subroutine replace_TAE(AreaCode,TableSwitch,T,U,R,Nm,maxj,nooft,HES_H, &
-  noofh,maxareahh,Comb,H,I,FirstInd,LastInd,TAE,HES_I,F,ChiSqCV, &
+  noofh,Comb,H,I,FirstInd,LastInd,TAE,HES_I,ChiSqCV, &
   limit,temp0,decr0,EvalsThreshold1,EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, &
   Step_Size,Evaluations,AcRSSZ,AcOTAE,TableType,Estimate_Fit_Flag)
 
@@ -30,7 +30,7 @@ integer Nm(1:nooft),BestComb(1:noofh),TableType(1:nooft) !BestComb(1:maxareahh)
 integer m,HES_H,HES_I,maxj,nooft
 integer Comb(1:noofh), H(1:HES_H,1:nooft),I(1:HES_I,1:nooft)
 integer FirstInd(1:HES_H),LastInd(1:HES_H)
-integer noofh,TAE,ind,maxhh,maxareahh
+integer noofh,TAE,ind,maxhh
 integer hh,hhno,AE,NewTAE,j
 !integer checktae1,checktae2,checktae3,origtae,checktae1b,checktae2b,checktae3b
 integer evaluations,rep,moves,limit,succ,adverse_changes,BestTAE
@@ -42,13 +42,13 @@ double precision randm
 integer TableSwitch(1:nooft)
 integer CombBank(1:noofh), UseCombBank, Measure
 integer OTAE(0:nooft)
-real    ORSumZ2(0:nooft), RSumZm2(0:nooft),TRSumZm2,NewTRSumZm2,BestTRSumZm2,LastTRdiff,LastProb
+real    ORSumZ2(0:nooft), RSumZm2(0:nooft),TRSumZm2,NewTRSumZm2,BestTRSumZm2
 integer ONFC(0:nooft), ONFT(0:nooft)
 integer Estimate_Fit_Flag
 
 integer noofrep, Fit_Achieved
 character*20 AreaCode 
-real F(1:maxj,1:nooft)
+
 double precision :: ChisqCV(1:nooft) 
 integer Dups_counter(1:HES_H)
 real    Dups            ! percentage of duplicate households in combination

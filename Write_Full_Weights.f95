@@ -7,7 +7,7 @@ character*40 RunName
 
 !Internal variables/arrays
 integer :: area,k,NoOfH,hh
-integer :: ioerr,area_loop_err
+integer :: area_loop_err
 integer, dimension(:), allocatable :: Comb
 integer, dimension(:,:), allocatable :: Area_Weights
 character*20 :: AreaCode(1:NoOfAreas)

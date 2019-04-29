@@ -5,7 +5,7 @@ IMPLICIT NONE
 !FOR INPUT AND OUTPUT.  THESE NAMES ARE CONTAINED IN A FILE
 !CALLED CO_filelist.txt
 
-INTEGER :: NOOFF, I
+INTEGER :: NOOFF
 CHARACTER*50 :: FNAME(nooff)
       
 OPEN(nooff+1,FILE='Data\CO_filelist.txt',status='old',action='read')

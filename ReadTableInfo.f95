@@ -1,5 +1,5 @@
 subroutine ReadTableInfo(TableName,Nm,ChiSqCV,TableType,TableSwitch,nooft,noofit,noofht,&
-  fname,nooff,Total_BM_counts,maxj)
+  Total_BM_counts,maxj)
 IMPLICIT NONE
 
 !For each benchmark table, read in values for:
@@ -9,8 +9,7 @@ IMPLICIT NONE
 !and calculate total number of benchmark cells
 
 integer :: Nm(1:nooft), TableSwitch(1:nooft), TableType(1:nooft)
-integer :: nooft, noofit, noofht, m, nooff,Total_BM_counts,maxj
-character*50 :: fname(1:nooff)
+integer :: nooft, noofit, noofht, m, Total_BM_counts,maxj
 character*4 :: TableName(1:nooft)
 double precision :: ChiSqCV(1:nooft)
 

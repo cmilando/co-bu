@@ -1,5 +1,5 @@
 subroutine replace_RSSZm(AreaCode,TableSwitch,T,U,R,Nm,maxj,nooft,HES_H, &
-  noofh,maxareahh,Comb,H,I,FirstInd,LastInd,TAE,HES_I,F,ChiSqCV, &
+  noofh,Comb,H,I,FirstInd,LastInd,TAE,HES_I,F,ChiSqCV, &
   limit,temp0,decr0,EvalsThreshold1,EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, &
   Step_Size,Evaluations,AcRSSZ,AcOTAE,TableType,Estimate_Fit_Flag)
 implicit none
@@ -31,31 +31,31 @@ integer Nm(1:nooft),BestComb(1:noofh),TableType(1:nooft) !BestComb(1:maxareahh)
 integer m,HES_H,HES_I,maxj,nooft
 integer Comb(1:noofh), H(1:HES_H,1:nooft),I(1:HES_I,1:nooft)
 integer FirstInd(1:HES_H),LastInd(1:HES_H)
-integer noofh,TAE,ind,maxhh,maxareahh
+integer noofh,TAE,ind,maxhh
 integer hh,hhno,AE,NewTAE,j
 !integer checktae1,checktae2,checktae3,origtae,checktae1b,checktae2b,checktae3b
 integer evaluations,rep,moves,limit,succ,adverse_changes,BestTAE
 integer EvalsThreshold1, EvalsThreshold2,EvalsThreshold3,EvalsThreshold4, step_size
 integer trigger_evals,AcOTAE
-real    time, t1, t2
-real    Temp, BestTemp, decr, decr0, Temp0, UserTemp, AcRSSZ
+double precision    time, t1, t2
+double precision    Temp, BestTemp, decr, decr0, Temp0, UserTemp, AcRSSZ
 double precision randm
 integer TableSwitch(1:nooft)
 integer CombBank(1:noofh), UseCombBank, Measure
 integer OTAE(0:nooft)
-real    ORSumZ2(0:nooft), RSumZm2(0:nooft),TRSumZm2,NewTRSumZm2,BestTRSumZm2,LastTRdiff,LastProb
+double precision    ORSumZ2(0:nooft), RSumZm2(0:nooft),TRSumZm2,NewTRSumZm2,BestTRSumZm2
 integer ONFC(0:nooft), ONFT(0:nooft)
 integer Estimate_Fit_Flag
 
 integer noofrep, Fit_Achieved
 character*20 AreaCode 
-real F(1:maxj,1:nooft)
+double precision F(1:maxj,1:nooft)
 double precision :: ChisqCV(1:nooft) 
 integer Dups_counter(1:HES_H)
-real    Dups            ! percentage of duplicate households in combination
+double precision    Dups            ! percentage of duplicate households in combination
 integer AreaSarSwitch !redundant for HES; but needed in case regional sampling possible
 
-real check_small_rand
+double precision check_small_rand
 
 !Initialise hard-coded run parameters                  
 
@@ -113,7 +113,7 @@ Call CalcTjm(TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),Nm,Comb,FirstInd,La
 call calcTAE(TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),maxj,nooft,Nm,TAE) 
 
 !For each constraint table, calculate Rjm [Ujm-Tjm]; min Rjm; MaxRjm
-call CalcRjm(TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),R(0:maxj,1:nooft),Nm,maxj,nooft,TAE)
+call CalcRjm(TableSwitch,T(0:maxj,1:nooft),U(0:maxj,1:nooft),R(0:maxj,1:nooft),Nm,maxj,nooft)
 
 !Assess and report goodness of fit of initial combo [test runs only]
 call  EvaluateCombination(TableSwitch,maxj,Nm,nooft,T(0:maxj,1:nooft),U(0:maxj,1:nooft),ChisqCV,OTAE,ORSumZ2,ONFT,ONFC)
@@ -345,7 +345,7 @@ endif
     else 
       call Random_Number(randm) 
       if (Temp .lt. 0.0001) temp=0.0001      ! avoid temp=0
-      check_small_rand = max(-80, real(TRSumZm2-NewTRSumZm2)*100./Temp) !added by CWM, to avoid Arithmetic error
+      check_small_rand = max(-80., real(TRSumZm2-NewTRSumZm2)*100./Temp) !added by CWM, to avoid Arithmetic error
       if (randm .lt. (exp(check_small_rand))) then
         rep=1
         adverse_changes=adverse_changes+1

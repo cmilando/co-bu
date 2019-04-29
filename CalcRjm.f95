@@ -1,4 +1,5 @@
-subroutine CalcRjm(switch,T,U,R,Nm,maxj,nooft,TAE)
+subroutine CalcRjm(switch,T,U,R,Nm,maxj,nooft)
+! CWM removed TAE
 implicit none
 
 !Rjm = Ujm - Tjm
@@ -6,7 +7,7 @@ implicit none
 integer T(0:maxj,1:nooft), U(0:maxj,1:nooft), R(0:maxj,1:nooft)
 integer Nm(1:nooft)
 integer j,m,diff,maxj,nooft
-integer max,min,TAE, switch(1:nooft)
+integer max,min,switch(1:nooft)
 
 !1. Initialise Rjm to 0
 R=0
