@@ -1,0 +1,11 @@
+MODULE Interfaces
+
+INTERFACE
+  SUBROUTINE Pass_Array_Test(A,B)
+    INTEGER :: A(:)
+    INTEGER :: B
+  END SUBROUTINE
+END INTERFACE
+
+
+END MODULE
